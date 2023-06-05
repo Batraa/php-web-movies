@@ -1,0 +1,12 @@
+{
+    "name": "hugop/sae2-01",
+    "description": "sea2-01 Developpement d'une application web",
+    "type": "project",
+    "license": "Copyleft",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "require": {}
+}
