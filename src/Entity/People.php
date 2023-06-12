@@ -142,7 +142,7 @@ class People
 
     public function getRoleByIdMovie($id)
     {
-        return Cast::getByIdAndMovie($id, $this->id);
+        return Cast::getByIdAndMovie($id, $this->id)->getRole();
     }
 
 
