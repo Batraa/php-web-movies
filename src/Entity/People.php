@@ -7,12 +7,12 @@ namespace Entity;
 class People
 {
     private int $id;
-    private int $avatarId;
-    private string $birthsday;
+    private ?int $avatarId;
+    private ?string $birthsday;
     private ?string $deathday;
     private string $name;
-    private string $biography;
-    private string $placeOfBirth;
+    private ?string $biography;
+    private ?string $placeOfBirth;
 
     /**
      * @return int
@@ -33,36 +33,36 @@ class People
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getAvatarId(): int
+    public function getAvatarId(): ?int
     {
         return $this->avatarId;
     }
 
     /**
-     * @param int $avatarId
+     * @param int|null $avatarId
      * @return People
      */
-    public function setAvatarId(int $avatarId): People
+    public function setAvatarId(?int $avatarId): People
     {
         $this->avatarId = $avatarId;
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getBirthsday(): string
+    public function getBirthsday(): ?string
     {
         return $this->birthsday;
     }
 
     /**
-     * @param string $birthsday
+     * @param string|null $birthsday
      * @return People
      */
-    public function setBirthsday(string $birthsday): People
+    public function setBirthsday(?string $birthsday): People
     {
         $this->birthsday = $birthsday;
         return $this;
@@ -105,39 +105,41 @@ class People
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getBiography(): string
+    public function getBiography(): ?string
     {
         return $this->biography;
     }
 
     /**
-     * @param string $biography
+     * @param string|null $biography
      * @return People
      */
-    public function setBiography(string $biography): People
+    public function setBiography(?string $biography): People
     {
         $this->biography = $biography;
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPlaceOfBirth(): string
+    public function getPlaceOfBirth(): ?string
     {
         return $this->placeOfBirth;
     }
 
     /**
-     * @param string $placeOfBirth
+     * @param string|null $placeOfBirth
      * @return People
      */
-    public function setPlaceOfBirth(string $placeOfBirth): People
+    public function setPlaceOfBirth(?string $placeOfBirth): People
     {
         $this->placeOfBirth = $placeOfBirth;
         return $this;
     }
+
+
 
 }
