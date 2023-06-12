@@ -10,9 +10,10 @@ $webpage = new AppWebPage("Liste des films");
 $movies = MovieCollection::findAll();
 
 foreach ($movies as $movie) {
-    $webpage->appendContent("<a href='film.php?movieId={$movie->getId()}'>");
-    $webpage->appendContent("<div><img class='movie__image' src='imgMovie.php?imageId={$movie->getPosterId()}'>");
-    $webpage->appendContent("<p>{$movie->getTitle()}</p></div></a>");
+    $webpage->appendContent("<a href='film.php?movieId={$movie->getId()}'>
+        <section class='movie__content'><img class='movie__image' src='imgMovie.php?imageId={$movie->getPosterId()}'>
+        <div class='movie__title'>{$movie->getTitle()}</div></section></a>");
 }
 
 echo $webpage->toHTML();
+
