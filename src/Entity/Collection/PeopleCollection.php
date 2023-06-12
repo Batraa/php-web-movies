@@ -22,7 +22,7 @@ class PeopleCollection
             FROM people p
             JOIN cast c on c.peopleId = p.id
             WHERE c.movieId = :movieId
-            ORDER BY p.name
+            ORDER BY c.orderIndex
         SQL
         );
 
