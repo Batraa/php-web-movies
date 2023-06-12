@@ -31,7 +31,7 @@ try {
 
     foreach ($Acteurs as $people) {
         $appWebPage->appendContent("<a href='acteur.php?peopleId={$people->getId()}'><div><img class='people__image' src='imgPeople.php?imageId={$people->getAvatarId()}'></div>");
-        $appWebPage->appendContent("<div><div>{$people->getRoleByIdMovie($movieId)}</div><div>{$people->getName()}</div></div>");
+        $appWebPage->appendContent("<div><p>{$people->getRoleByIdMovie($movieId)}</p><p>{$people->getName()}</p></div>");
     }
 
     echo $appWebPage->toHTML();
