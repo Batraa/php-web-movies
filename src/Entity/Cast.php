@@ -106,7 +106,8 @@ class Cast
         return $this;
     }
 
-    public static function getByIdAndMovie($movieId,$peopleId){
+    public static function getByIdAndMovie($movieId, $peopleId)
+    {
 
         $stmt = MyPDO::getInstance()->prepare(
             <<<'SQL'

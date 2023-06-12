@@ -140,6 +140,11 @@ class People
         return $this;
     }
 
+    public function getRoleByIdMovie($id)
+    {
+        return Cast::getByIdAndMovie($id, $this->id);
+    }
+
 
 
 }
