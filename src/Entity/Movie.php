@@ -8,7 +8,7 @@ class Movie
     private int $posterId;
     private int $id;
     private string $originalLanguage;
-    private string $orignalTitle;
+    private string $originalTitle;
     private string $overview;
     private string $releaseDate;
     private int $runtime;
@@ -72,18 +72,18 @@ class Movie
     /**
      * @return string
      */
-    public function getOrignalTitle(): string
+    public function getOriginalTitle(): string
     {
-        return $this->orignalTitle;
+        return $this->originalTitle;
     }
 
     /**
      * @param string $orignalTitle
      * @return Movie
      */
-    public function setOrignalTitle(string $orignalTitle): Movie
+    public function setOriginalTitle(string $originalTitle): Movie
     {
-        $this->orignalTitle = $orignalTitle;
+        $this->originalTitle = $originalTitle;
         return $this;
     }
 
