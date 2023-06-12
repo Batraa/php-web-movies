@@ -41,8 +41,7 @@ use PDOException;
  * @enduml
  *
  */
-final class MyPdo extends PDO
-{
+final class MyPdo extends PDO{
     /**
      * Instance unique de PDO.
      */
@@ -96,6 +95,7 @@ final class MyPdo extends PDO
      */
     private function __clone(): void
     {
+        return;
     }
 
     /**
