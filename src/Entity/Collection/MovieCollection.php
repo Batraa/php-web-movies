@@ -28,22 +28,23 @@ class MovieCollection
         return $stmt->fetchAll(PDO::FETCH_CLASS, Movie::class);
     }
 
-    public static function findByPeopleId($peopleId)
+    public static function findByPeopleId(int $peopleId): array
     {
-        $stmt = MyPdo::getInstance()->prepare(
-            <<<SQL
-            SELECT DISTINCT posterId, id, originalLanguage, originalTitle, 
-                   overview, releaseDate, runtime, tagline, title
+        $stmt = MyPDO::getInstance()->prepare(
+            <<<'SQL'
+            SELECT m.id, m.posterId, m.originalLanguage, m.originalTitle, 
+                   m.overview, m.releaseDate, m.runtime, m.tagline, m.title
             FROM movie m
                 JOIN cast c ON m.id = c.movieId
-            WHERE peopleId = :peopleId
+            WHERE c.peopleId = :peopleId
             ORDER BY title;
-            SQL
+        SQL
         );
 
         $stmt->bindValue(':peopleId', "$peopleId");
 
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, Movie::class);
+
     }
 }
