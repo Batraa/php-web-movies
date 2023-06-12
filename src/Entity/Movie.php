@@ -211,5 +211,10 @@ class Movie
 
     }
 
+    public function getRoleByIdPeople($id)
+    {
+        return Cast::getByIdAndMovie($this->id, $id)->getRole();
+    }
+
 
 }

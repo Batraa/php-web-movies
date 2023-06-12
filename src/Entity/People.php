@@ -12,7 +12,7 @@ class People
 {
     private int $id;
     private ?int $avatarId;
-    private ?string $birthsday;
+    private ?string $birthday;
     private ?string $deathday;
     private string $name;
     private ?string $biography;
@@ -57,18 +57,18 @@ class People
     /**
      * @return string|null
      */
-    public function getBirthsday(): ?string
+    public function getBirthday(): ?string
     {
-        return $this->birthsday;
+        return $this->birthday;
     }
 
     /**
-     * @param string|null $birthsday
+     * @param string|null $birthday
      * @return People
      */
-    public function setBirthsday(?string $birthsday): People
+    public function setBirthday(?string $birthday): People
     {
-        $this->birthsday = $birthsday;
+        $this->birthday = $birthday;
         return $this;
     }
 
