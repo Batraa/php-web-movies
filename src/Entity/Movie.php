@@ -1,12 +1,17 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Entity;
 
+use Database\MyPdo;
+use Entity\Exception\EntityNotFoundException;
+use PDO;
+
 class Movie
 {
-    private int $posterId;
     private int $id;
+    private ?int $posterId;
     private string $originalLanguage;
     private string $originalTitle;
     private string $overview;
@@ -18,7 +23,7 @@ class Movie
     /**
      * @return int
      */
-    public function getPosterId(): int
+    public function getPosterId(): ?int
     {
         return $this->posterId;
     }
@@ -27,7 +32,7 @@ class Movie
      * @param int $posterId
      * @return Movie
      */
-    public function setPosterId(int $posterId): Movie
+    public function setPosterId(?int $posterId): Movie
     {
         $this->posterId = $posterId;
         return $this;
@@ -175,6 +180,40 @@ class Movie
     {
         $this->title = $title;
         return $this;
+    }
+
+    public static function findById($id)
+    {
+
+        $stmt = MyPDO::getInstance()->prepare(
+            <<<'SQL'
+            SELECT posterId, id, originalLanguage, originalTitle, 
+                   overview, releaseDate, runtime, tagline, title
+            FROM movie
+            WHERE id = :movieId
+        SQL
+        );
+
+        $stmt->bindValue(':movieId', "$id");
+
+        $stmt->execute();
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Movie::class);
+
+        $movie = $stmt->fetch() ;
+
+        if (!$movie) {
+            throw new EntityNotFoundException("Aucun Film n'existe pour cet id");
+        }
+
+        return $movie;
+
+
+    }
+
+    public function getRoleByIdPeople($id)
+    {
+        return Cast::getByIdAndMovie($this->id, $id)->getRole();
     }
 
 

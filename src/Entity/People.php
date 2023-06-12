@@ -4,15 +4,19 @@ declare(strict_types=1);
 
 namespace Entity;
 
+use Database\MyPdo;
+use Entity\Exception\EntityNotFoundException;
+use PDO;
+
 class People
 {
     private int $id;
-    private int $avatarId;
-    private string $birthsday;
+    private ?int $avatarId;
+    private ?string $birthday;
     private ?string $deathday;
     private string $name;
-    private string $biography;
-    private string $placeOfBirth;
+    private ?string $biography;
+    private ?string $placeOfBirth;
 
     /**
      * @return int
@@ -33,38 +37,38 @@ class People
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getAvatarId(): int
+    public function getAvatarId(): ?int
     {
         return $this->avatarId;
     }
 
     /**
-     * @param int $avatarId
+     * @param int|null $avatarId
      * @return People
      */
-    public function setAvatarId(int $avatarId): People
+    public function setAvatarId(?int $avatarId): People
     {
         $this->avatarId = $avatarId;
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getBirthsday(): string
+    public function getBirthday(): ?string
     {
-        return $this->birthsday;
+        return $this->birthday;
     }
 
     /**
-     * @param string $birthsday
+     * @param string|null $birthday
      * @return People
      */
-    public function setBirthsday(string $birthsday): People
+    public function setBirthday(?string $birthday): People
     {
-        $this->birthsday = $birthsday;
+        $this->birthday = $birthday;
         return $this;
     }
 
@@ -105,39 +109,70 @@ class People
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getBiography(): string
+    public function getBiography(): ?string
     {
         return $this->biography;
     }
 
     /**
-     * @param string $biography
+     * @param string|null $biography
      * @return People
      */
-    public function setBiography(string $biography): People
+    public function setBiography(?string $biography): People
     {
         $this->biography = $biography;
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPlaceOfBirth(): string
+    public function getPlaceOfBirth(): ?string
     {
         return $this->placeOfBirth;
     }
 
     /**
-     * @param string $placeOfBirth
+     * @param string|null $placeOfBirth
      * @return People
      */
-    public function setPlaceOfBirth(string $placeOfBirth): People
+    public function setPlaceOfBirth(?string $placeOfBirth): People
     {
         $this->placeOfBirth = $placeOfBirth;
         return $this;
+    }
+
+    public function getRoleByIdMovie($id)
+    {
+        return Cast::getByIdAndMovie($id, $this->id)->getRole();
+    }
+
+    public static function findById($id)
+    {
+
+        $stmt = MyPDO::getInstance()->prepare(
+            <<<'SQL'
+            SELECT id,avatarId,birthday,deathday,name,biography,placeOfBirth
+            FROM people p
+            WHERE id = :peopleId
+        SQL
+        );
+
+        $stmt->bindValue(':peopleId', "$id");
+
+        $stmt->execute();
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, People::class);
+
+        $people = $stmt->fetch() ;
+
+        if (!$people) {
+            throw new EntityNotFoundException("Aucun acteur n'existe pour cet id");
+        }
+
+        return $people;
     }
 
 }
