@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Entity;
 
+use Database\MyPdo;
+use Entity\Exception\EntityNotFoundException;
+use PDO;
+
 class People
 {
     private int $id;
@@ -145,6 +149,30 @@ class People
         return Cast::getByIdAndMovie($id, $this->id)->getRole();
     }
 
+    public static function findById($id)
+    {
 
+        $stmt = MyPDO::getInstance()->prepare(
+            <<<'SQL'
+            SELECT id,avatarId,birthday,deathday,name,biography,placeOfBirth
+            FROM people p
+            WHERE id = :peopleId
+        SQL
+        );
+
+        $stmt->bindValue(':peopleId', "$id");
+
+        $stmt->execute();
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, People::class);
+
+        $people = $stmt->fetch() ;
+
+        if (!$people) {
+            throw new EntityNotFoundException("Aucun acteur n'existe pour cet id");
+        }
+
+        return $people;
+    }
 
 }
