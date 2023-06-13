@@ -20,9 +20,8 @@ class Movie
     private string $tagline;
     private string $title;
 
-    private function __construct(int $id, string $originalLanguage, string $originalTitle, string $overview, string $releaseDate, int $runtime, string $tagline, string $title)
+    private function __construct(string $originalLanguage, string $originalTitle, string $overview, string $releaseDate, int $runtime, string $tagline, string $title)
     {
-        $this->id = $id;
         $this->originalLanguage = $originalLanguage;
         $this->originalTitle = $originalTitle;
         $this->overview = $overview;
@@ -265,9 +264,10 @@ SQL
         return $this;
     }
 
-    public static function create(int $id, string $originalLanguage, string $originalTitle, string $overview, string $releaseDate, int $runtime, string $tagline, string $title)
+    public static function create(string $originalLanguage, string $originalTitle, string $overview, string $releaseDate, int $runtime, string $tagline, string $title)
     {
-        return new Movie($id, $originalLanguage, $originalTitle, $overview, $releaseDate, $runtime, $tagline, $title);
+        return new Movie($originalLanguage, $originalTitle, $overview, $releaseDate, $runtime, $tagline, $title);
     }
+
 
 }
