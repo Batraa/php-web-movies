@@ -20,6 +20,18 @@ class Movie
     private string $tagline;
     private string $title;
 
+    private function __construct(int $id, string $originalLanguage, string $originalTitle, string $overview, string $releaseDate, int $runtime, string $tagline, string $title)
+    {
+        $this->id = $id;
+        $this->originalLanguage = $originalLanguage;
+        $this->originalTitle = $originalTitle;
+        $this->overview = $overview;
+        $this->releaseDate = $releaseDate;
+        $this->runtime = $runtime;
+        $this->tagline = $tagline;
+        $this->title = $title;
+    }
+
     /**
      * @return int
      */
@@ -251,6 +263,11 @@ SQL
         $stmt->bindValue(':id', $this->id);
         $stmt->execute();
         return $this;
+    }
+
+    public static function create(int $id, string $originalLanguage, string $originalTitle, string $overview, string $releaseDate, int $runtime, string $tagline, string $title)
+    {
+        return new Movie($id, $originalLanguage, $originalTitle, $overview, $releaseDate, $runtime, $tagline, $title);
     }
 
 }
