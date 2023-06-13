@@ -17,11 +17,11 @@ try {
     echo $rep;
 } catch (ParameterException) {
     header('Content-type: image/jpeg');
-    header('Location: http://localhost:8000/img/peopleError.jpeg');
+    header('Location: img/peopleError.jpeg');
     exit();
 } catch (EntityNotFoundException) {
     header('Content-type: image/jpeg');
-    header('Location: http://localhost:8000/img/peopleError.jpeg');
+    header('Location: img/peopleError.jpeg');
     exit();
 } catch (Exception) {
     http_response_code(500);

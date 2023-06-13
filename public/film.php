@@ -59,12 +59,11 @@ try {
 
     echo $appWebPage->toHTML();
 } catch (ParameterException) {
-    header('Location: http://localhost:8000/index.php');
+    header('Location: index.php');
     exit();
 } catch (EntityNotFoundException) {
     http_response_code(404);
-    header('Location: http://localhost:8000/index.php');
-    exit();
 } catch (Exception) {
     http_response_code(500);
 }
+
