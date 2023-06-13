@@ -13,11 +13,7 @@ body{
     flex-direction: column;
     justify-content: space-around;
     flex-grow: 1;
-
-    width: 75%;
-    border-style: solid;
-    border-color: lightgray;
-    border-width: 1px;
+    width: 60%;
 }
 
 .movie__content{
@@ -26,9 +22,8 @@ body{
 }
 
 
-
 .movie__title{
-    font-size: 300%;
+    font-size: 200%;
     max-width: 100%;
     align-self: center;
 }
@@ -39,6 +34,11 @@ body{
         flex-flow: row wrap;
         overflow-y: scroll;
         padding: 20px;
+        width: 75%;
+        border-style: solid;
+        border-color: lightgray;
+        border-width: 1px;
+
     }
     .movie__title{
         font-size: 100%;
