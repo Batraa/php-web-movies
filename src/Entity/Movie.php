@@ -10,7 +10,7 @@ use PDO;
 
 class Movie
 {
-    private int $id;
+    private ?int $id;
     private ?int $posterId;
     private string $originalLanguage;
     private string $originalTitle;
@@ -50,7 +50,7 @@ class Movie
      * @param int $id
      * @return Movie
      */
-    public function setId(int $id): Movie
+    private function setId(int $id): Movie
     {
         $this->id = $id;
         return $this;
@@ -214,6 +214,20 @@ class Movie
     public function getRoleByIdPeople($id)
     {
         return Cast::getByIdAndMovie($this->id, $id)->getRole();
+    }
+
+    public function delete(): Movie
+    {
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+DELETE FROM movie
+WHERE id = :id
+SQL
+        );
+        $stmt->bindValue(':id', $this->id);
+        $stmt->execute();
+        $this->id = null;
+        return $this;
     }
 
 
