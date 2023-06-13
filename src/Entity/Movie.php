@@ -230,5 +230,27 @@ SQL
         return $this;
     }
 
+    public function save(): Movie
+    {
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+UPDATE movie
+SET title = :title, originalTitle = :originalTitle, overview = :overview, releaseDate = :releaseDate, 
+    runtime = :runtime, tagline = :tagline, originalLanguage = :originalLanguage
+WHERE id = :id
+SQL
+
+        );
+        $stmt->bindValue(':title', $this->title);
+        $stmt->bindValue(':originalTitle', $this->originalTitle);
+        $stmt->bindValue(':overview', $this->overview);
+        $stmt->bindValue(':releaseDate', $this->releaseDate);
+        $stmt->bindValue(':runtime', $this->runtime);
+        $stmt->bindValue(':tagline', $this->tagline);
+        $stmt->bindValue(':originalLanguage', $this->originalLanguage);
+        $stmt->bindValue(':id', $this->id);
+        $stmt->execute();
+        return $this;
+    }
 
 }
