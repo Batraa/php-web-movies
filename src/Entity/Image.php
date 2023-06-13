@@ -67,7 +67,7 @@ class Image
 
         $image = $stmt->fetch() ;
 
-        if ($image == false) {
+        if (!$image) {
             throw new ParameterException("Le paramètre n'est pas bon");
         }
         return $image;
