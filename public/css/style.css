@@ -1,0 +1,45 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+body{
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+    overflow-y: scroll;
+    width: 75%;
+    border-style: solid;
+    border-color: lightgray;
+    border-width: 1px;
+}
+
+.movie__content{
+    display:flex;
+    flex-direction: column;
+}
+
+
+
+.movie__title{
+    font-size: 300%;
+    max-width: 100%;
+    align-self: center;
+}
+
+@media only screen and (min-width: 720px){
+
+    .content{
+        flex-flow: row wrap;
+    }
+    .movie__title{
+        font-size: 100%;
+        max-width: 240px;
+    }
+}
