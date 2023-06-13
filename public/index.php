@@ -12,7 +12,7 @@ $movies = MovieCollection::findAll();
 foreach ($movies as $movie) {
     $webpage->appendContent("<a href='film.php?movieId={$movie->getId()}'>
         <section class='movie__content'><img class='movie__image' src='imgMovie.php?imageId={$movie->getPosterId()}'>
-        <div class='movie__title'>{$movie->getTitle()}</div></section></a>");
+        <div class='movie__title'>{$webpage->escapeString($movie->getTitle())}</div></section></a>");
 }
 
 echo $webpage->toHTML();
