@@ -250,7 +250,6 @@ SET title = :title, originalTitle = :originalTitle, overview = :overview, releas
     runtime = :runtime, tagline = :tagline, originalLanguage = :originalLanguage
 WHERE id = :id
 SQL
-
         );
         $stmt->bindValue(':title', $this->title);
         $stmt->bindValue(':originalTitle', $this->originalTitle);
@@ -269,5 +268,26 @@ SQL
         return new Movie($originalLanguage, $originalTitle, $overview, $releaseDate, $runtime, $tagline, $title);
     }
 
+    public function insert(): Movie
+    {
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+INSERT INTO movie (originalLanguage, originalTitle, overview, releaseDate, runtime, tagline, title)
+    VALUES (:originalLanguage, :originalTitle, :overview, :releaseDate, :runtime, :tagline, :title)
+SQL
+        );
+        $stmt->bindValue(':originalLanguage', $this->originalLanguage);
+        $stmt->bindValue(':originalTitle', $this->originalTitle);
+        $stmt->bindValue(':overview', $this->overview);
+        $stmt->bindValue(':releaseDate', $this->releaseDate);
+        $stmt->bindValue(':runtime', $this->runtime);
+        $stmt->bindValue(':tagline', $this->tagline);
+        $stmt->bindValue(':title', $this->title);
+
+        $stmt->execute();
+
+        $this->id = intval(PDO::lastInsertId());
+        return $this;
+    }
 
 }
