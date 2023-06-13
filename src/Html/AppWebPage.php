@@ -18,7 +18,7 @@ class AppWebPage extends WebPage
 
         return <<<HTML
             <!DOCTYPE HTML>
-            <html lang="fr" >
+            <html lang="fr" xmlns="http://www.w3.org/1999/html">
                 <head>
                     <meta charset="UTF-8" name="viewport">
                     <title>{$this->title}</title>
@@ -26,6 +26,9 @@ class AppWebPage extends WebPage
                 </head>
                 <body>
                     <header class="header">
+                        <form action="/index.php" method="POST">
+                            <input type="submit" value="Page d'acceuil">
+                        </form>
                         <h1>$this->title</h1>
                     </header>
                     <main class="content">
