@@ -13,26 +13,43 @@ try {
         throw new ParameterException("Le paramètre n'est pas bon");
     }
     $peopleId = (int)($_GET['peopleId']);
-
-    $appWebPage = new AppWebPage();
-
     $people = People::findById($peopleId);
 
-    $films = MovieCollection::findByPeopleId($peopleId);
+    $appWebPage = new AppWebPage("Films - {$people->getName()}");
 
-    $nomActeur = $people->getName();
+    $movies = MovieCollection::findByPeopleId($peopleId);
 
-    $appWebPage->setTitle("Films - {$nomActeur}");
+    $appWebPage->appendContent("
+                <div class='actor__page'>
+                    <section class='actor__profile'>
+                        <img class='people__image' src='imgPeople.php?imageId={$people->getAvatarId()}'>
+                        <div class='actor__profile_info'>
+                            <p>{$people->getName()}</p>
+                            <p>{$people->getPlaceOfBirth()}</p>
+                            <div class='actor__birthdate'>
+                                <p>{$people->getBirthday()}</p>
+                                <p>{$people->getDeathDay()}</p>
+                            </div>
+                                <p>{$people->getBiography()}</p>    
+                        </div>
+                    </section>");
 
-    $appWebPage->appendContent("<div><div><img class='people__image' src='imgPeople.php?imageId={$people->getAvatarId()}'></div>");
-    $appWebPage->appendContent("<div><p>{$nomActeur}</p><p>{$people->getPlaceOfBirth()}</p><p>{$people->getBirthday()}</p><p>{$people->getDeathDay()}</p><p>{$people->getBiography()}</p>");
-    $appWebPage->appendContent("</div></div>");
 
-    foreach ($films as $film) {
-        $appWebPage->appendContent("<a href='film.php?movieId={$film->getId()}'><div><img class='movie__image' src='imgMovie.php?imageId={$film->getPosterId()}'></div>");
-        $appWebPage->appendContent("<div><p>{$film->getRoleByIdPeople($peopleId)}</p><p>{$appWebPage->escapeString($film->getTitle())}</p></div>");
+
+    foreach ($movies as $movie) {
+        $appWebPage->appendContent("
+        <a href='film.php?movieId={$movie->getId()}' class='actor__movies'>
+                <img class='movie__image' src='imgMovie.php?imageId={$movie->getPosterId()}'>
+            <div class='actor__films_info'>
+                <div class='actor__role_date'>
+                    <p>{$movie->getRoleByIdPeople($peopleId)}</p>
+                    <p>{$movie->getReleaseDate()}</p>
+                 </div>
+                <p>{$appWebPage->escapeString($movie->getTitle())}</p>
+            </div>
+        </a>");
     }
-
+    $appWebPage->appendContent("</section></div>");
     echo $appWebPage->toHTML();
 
 } catch (ParameterException) {
