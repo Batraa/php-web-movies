@@ -27,7 +27,7 @@ class AppWebPage extends WebPage
                 <body>
                     <header class="header">
                         <form action="/index.php" method="POST">
-                            <input type="submit" value="Page d'acceuil">
+                            <input type="submit" value="Page d'accueil" style="margin-left: 20%">
                         </form>
                         <h1>$this->title</h1>
                     </header>
