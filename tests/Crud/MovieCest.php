@@ -52,4 +52,11 @@ class MovieCest
         $I->assertSame('Taxi 3', $movie->getTitle());
     }
 
+    public function createWithId(CrudTester $I)
+    {
+        $movie = Movie::create('French', 'Taxi 3', null, '2003-01-29', 10, null, 'Taxi 3', 200);
+        $I->assertSame(200, $movie->getId());
+        $I->assertSame('Taxi 3', $movie->getTitle());
+    }
+
 }
