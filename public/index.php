@@ -10,7 +10,7 @@ $webpage = new AppWebPage("Liste des films");
 $movies = MovieCollection::findAll();
 
 $webpage->appendContent("
-                        <form action='/admin/movie-form.php' method='POST'>
+                        <form class='add__button' action='/admin/movie-form.php' method='POST'>
                             <input type='submit' value='Ajouter'>
                         </form>");
 
