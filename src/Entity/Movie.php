@@ -10,7 +10,7 @@ use PDO;
 
 class Movie
 {
-    private int $id;
+    private ?int $id;
     private ?int $posterId;
     private string $originalLanguage;
     private string $originalTitle;
@@ -19,6 +19,17 @@ class Movie
     private int $runtime;
     private string $tagline;
     private string $title;
+
+    private function __construct(string $originalLanguage, string $originalTitle, string $overview, string $releaseDate, int $runtime, string $tagline, string $title)
+    {
+        $this->originalLanguage = $originalLanguage;
+        $this->originalTitle = $originalTitle;
+        $this->overview = $overview;
+        $this->releaseDate = $releaseDate;
+        $this->runtime = $runtime;
+        $this->tagline = $tagline;
+        $this->title = $title;
+    }
 
     /**
      * @return int
@@ -50,7 +61,7 @@ class Movie
      * @param int $id
      * @return Movie
      */
-    public function setId(int $id): Movie
+    private function setId(int $id): Movie
     {
         $this->id = $id;
         return $this;
@@ -216,5 +227,67 @@ class Movie
         return Cast::getByIdAndMovie($this->id, $id)->getRole();
     }
 
+    public function delete(): Movie
+    {
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+DELETE FROM movie
+WHERE id = :id
+SQL
+        );
+        $stmt->bindValue(':id', $this->id);
+        $stmt->execute();
+        $this->id = null;
+        return $this;
+    }
+
+    public function save(): Movie
+    {
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+UPDATE movie
+SET title = :title, originalTitle = :originalTitle, overview = :overview, releaseDate = :releaseDate, 
+    runtime = :runtime, tagline = :tagline, originalLanguage = :originalLanguage
+WHERE id = :id
+SQL
+        );
+        $stmt->bindValue(':title', $this->title);
+        $stmt->bindValue(':originalTitle', $this->originalTitle);
+        $stmt->bindValue(':overview', $this->overview);
+        $stmt->bindValue(':releaseDate', $this->releaseDate);
+        $stmt->bindValue(':runtime', $this->runtime);
+        $stmt->bindValue(':tagline', $this->tagline);
+        $stmt->bindValue(':originalLanguage', $this->originalLanguage);
+        $stmt->bindValue(':id', $this->id);
+        $stmt->execute();
+        return $this;
+    }
+
+    public static function create(string $originalLanguage, string $originalTitle, string $overview, string $releaseDate, int $runtime, string $tagline, string $title)
+    {
+        return new Movie($originalLanguage, $originalTitle, $overview, $releaseDate, $runtime, $tagline, $title);
+    }
+
+    public function insert(): Movie
+    {
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+INSERT INTO movie (originalLanguage, originalTitle, overview, releaseDate, runtime, tagline, title)
+    VALUES (:originalLanguage, :originalTitle, :overview, :releaseDate, :runtime, :tagline, :title)
+SQL
+        );
+        $stmt->bindValue(':originalLanguage', $this->originalLanguage);
+        $stmt->bindValue(':originalTitle', $this->originalTitle);
+        $stmt->bindValue(':overview', $this->overview);
+        $stmt->bindValue(':releaseDate', $this->releaseDate);
+        $stmt->bindValue(':runtime', $this->runtime);
+        $stmt->bindValue(':tagline', $this->tagline);
+        $stmt->bindValue(':title', $this->title);
+
+        $stmt->execute();
+
+        $this->id = intval(PDO::lastInsertId());
+        return $this;
+    }
 
 }
