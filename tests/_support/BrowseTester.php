@@ -23,4 +23,5 @@ class BrowseTester extends \Codeception\Actor
     /**
      * Define custom actions here
      */
+
 }

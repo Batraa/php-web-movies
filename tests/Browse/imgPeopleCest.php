@@ -18,7 +18,7 @@ class imgPeopleCest
      */
     public function loadImgPeopleWithWrongParameter(BrowseTester $I, Example $example)
     {
-        $I->amOnPage('/imgPeople?imageId=' . $example['id']);
+        $I->amOnPage('/imgPeople.php?imageId=' . $example['id']);
         $I->seeResponseCodeIs($example['response']);
     }
 
@@ -33,9 +33,9 @@ class imgPeopleCest
 
     public function loadImgPeopleWithCorrectParameter(BrowseTester $I)
     {
-        $I->amOnPage('/imgPeople?imageId=16371');
+        $I->amOnPage('/imgPeople.php?imageId=16731');
         $I->seeResponseCodeIs(200);
         $I->haveHttpHeader('Content-Type', 'image/jpeg');
-        $I->seeResponseContentIs(file_get_contents(codecept_data_dir() . '/img/'));
+        $I->seeResponseContentIs(file_get_contents(codecept_data_dir() . '/img/imgPeople.jpg'));
     }
 }
