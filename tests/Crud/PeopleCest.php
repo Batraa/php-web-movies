@@ -1,8 +1,11 @@
 <?php
+
 namespace Tests\Crud;
+
 use Entity\Exception\EntityNotFoundException;
 use Entity\People;
 use Tests\CrudTester;
+
 class PeopleCest
 {
     public function findById(CrudTester $I)

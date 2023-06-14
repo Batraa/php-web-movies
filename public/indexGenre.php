@@ -17,6 +17,10 @@ try {
 
     $movies = MovieCollection::findByGenreId($genreId);
 
+    $webpage->appendContent('<form class="delete__filters_button" action="/index.php" method="POST">
+                            <input type="submit" value="Supprimer le filtre">
+                        </form>');
+
     foreach ($movies as $movie) {
         $webpage->appendContent("<a href='film.php?movieId={$movie->getId()}'>
         <section class='movie__content'><img class='movie__image' src='imgMovie.php?imageId={$movie->getPosterId()}'>

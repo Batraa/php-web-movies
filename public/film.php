@@ -13,14 +13,20 @@ try {
     if (!isset($_GET['movieId']) or empty($_GET['movieId']) or ctype_digit($_GET['movieId']) == false) {
         throw new ParameterException("Le paramètre n'est pas bon");
     }
-    $movieId = (int)($_GET['movieId']);
-    $movie = Movie::findById($movieId);
+    $movieId =($_GET['movieId']);
+    $movie = Movie::findById(intval($movieId));
 
     $appWebPage = new AppWebPage("Films - {$movie->getTitle()}");
 
-    $Acteurs = PeopleCollection::findByMovieId($movieId);
+    $Acteurs = PeopleCollection::findByMovieId($movie->getId());
 
-
+    $appWebPage->appendContent("
+                        <form action='"."/admin/movie-form.php?movieId={$movieId}'"."method='POST'>
+                            <input type='submit' value='Modifier'>
+                        </form>
+                        <form action='"."/admin/movie-delete.php?movieId={$movieId}'"."method='POST'>
+                            <input type='submit' value='Supprimer'>
+                        </form>");
 
     $appWebPage->appendContent("
         <section class='movie__info'>

@@ -15,7 +15,7 @@ body{
 .header>h1{
     flex-grow: 1;
     text-align: center;
-    padding-right: 12.5%;
+    padding-right: 10%;
 
 }
 .content {
@@ -138,6 +138,21 @@ a:link{
     justify-content: space-between;
 }
 
+.add__button{
+    margin-right: 80%;
+    margin-left: 80%;
+    margin-bottom: 1%;
+}
+
+.genre__list{
+    margin-left: 80%;
+    margin-bottom: 4%
+}
+.delete__filters_button {
+    margin-right: 80%;
+    margin-left: 80%;
+    margin-bottom: 4%;
+}
 @media only screen and (min-width: 720px){
 
     .content{
@@ -154,5 +169,14 @@ a:link{
         font-size: 100%;
         max-width: 240px;
     }
-
+    .add__button{
+        margin-right: 100%;
+        margin-left: 100%;
+        margin-bottom: 1%;
+    }
+    .delete__filters_button{
+        margin-right: 100%;
+        margin-left: 100%;
+        margin-bottom: 4%;
+    }
 }
