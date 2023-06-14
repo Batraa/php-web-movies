@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace Entity;
 
+use Database\MyPdo;
+use PDO;
+
 class Genre
 {
     public int $id;
@@ -44,5 +47,26 @@ class Genre
         return $this;
     }
 
+    public static function findById($id): Genre
+    {
+        $stmt = MyPdo::getInstance()->prepare(
+            <<<SQL
+SELECT id, name
+FROM genre
+WHERE id = :id
+SQL
+        );
 
+        $stmt->bindValue(':id', $id);
+
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Genre::class);
+        $genre = $stmt->fetch();
+
+        if (!$genre) {
+            throw new EntityNotFoundException("Aucun genre n'existe pour cet id");
+        }
+
+        return $genre;
+    }
 }
