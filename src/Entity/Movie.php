@@ -241,7 +241,7 @@ SQL
         return $this;
     }
 
-    public function save(): Movie
+    public function update(): Movie
     {
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
