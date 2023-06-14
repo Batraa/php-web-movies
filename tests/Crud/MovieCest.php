@@ -19,4 +19,15 @@ class MovieCest
             Movie::findById(PHP_INT_MAX);
         });
     }
+
+    public function delete(CrudTester $I)
+    {
+        $movie = Movie::findById(108);
+        $movie->delete();
+        var_dump($movie);
+        $I->cantSeeInDatabase('movie', ['id' => 108]);
+        $I->cantSeeInDatabase('movie', ['title' => 'Trois couleurs : Bleu']);
+        $I->assertNull($movie->getId());
+        $I->assertSame('Trois couleurs : Bleu', $movie->getTitle());
+    }
 }
