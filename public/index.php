@@ -15,7 +15,7 @@ $webpage->appendContent("
                         <form class='add__button' action='/admin/movie-form.php' method='POST'>
                             <input type='submit' value='Ajouter'>
                         </form>
-                        <form class='genre__list' method='POST' action='indexGenre.php'>
+                        <form class='genre__list' method='GET' action='/indexGenre.php'>
                             <select name='genreId'>
                                 ");
 
@@ -24,7 +24,9 @@ foreach ($genres as $genre) {
     <option value='{$genre->getId()}'>{$genre->getName()}</option>
     ");
 }
-$webpage->appendContent("</select></form>");
+$webpage->appendContent("</select>
+                                <input type='submit' value='Filtrer'>
+                            </form>");
 
 foreach ($movies as $movie) {
     $webpage->appendContent("<a href='film.php?movieId={$movie->getId()}'>
