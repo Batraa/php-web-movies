@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Entity;
 
 use Database\MyPdo;
+use Entity\Exception\EntityNotFoundException;
 use Exception\ParameterException;
 use PDO;
 
@@ -68,7 +69,7 @@ class Image
         $image = $stmt->fetch() ;
 
         if (!$image) {
-            throw new ParameterException("Le paramètre n'est pas bon");
+            throw new EntityNotFoundException("Le paramètre n'est pas bon");
         }
         return $image;
 
