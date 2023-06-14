@@ -1,8 +1,11 @@
 <?php
+
 namespace Tests\Crud\Collection;
+
 use Entity\Collection\MovieCollection;
 use Entity\Movie;
 use Tests\CrudTester;
+
 class MovieCollectionCest
 {
     public function findAll(CrudTester $I)

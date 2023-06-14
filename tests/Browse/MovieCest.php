@@ -84,6 +84,8 @@ class MovieCest
                   'Buster Brodie',
                   'Ethelreda Leopold',
                   'Billy Curtis'
-        ], $I->grabMultiple('.content .actor__list .actor__name'));
+        ],
+            $I->grabMultiple('.content .actor__list .actor__name')
+        );
     }
 }
