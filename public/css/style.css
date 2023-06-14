@@ -138,6 +138,12 @@ a:link{
     justify-content: space-between;
 }
 
+.add__button{
+    margin-right: 100%;
+    margin-left: 100%;
+    margin-bottom: 4%;
+}
+
 @media only screen and (min-width: 720px){
 
     .content{
