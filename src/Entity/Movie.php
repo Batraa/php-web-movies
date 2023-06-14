@@ -20,16 +20,7 @@ class Movie
     private string $tagline;
     private string $title;
 
-    private function __construct(string $originalLanguage, string $originalTitle, string $overview, string $releaseDate, int $runtime, string $tagline, string $title)
-    {
-        $this->originalLanguage = $originalLanguage;
-        $this->originalTitle = $originalTitle;
-        $this->overview = $overview;
-        $this->releaseDate = $releaseDate;
-        $this->runtime = $runtime;
-        $this->tagline = $tagline;
-        $this->title = $title;
-    }
+
 
     /**
      * @return int
@@ -241,7 +232,7 @@ SQL
         return $this;
     }
 
-    public function save(): Movie
+    public function update(): Movie
     {
         $stmt = MyPdo::getInstance()->prepare(
             <<<SQL
@@ -265,7 +256,16 @@ SQL
 
     public static function create(string $originalLanguage, string $originalTitle, string $overview, string $releaseDate, int $runtime, string $tagline, string $title)
     {
-        return new Movie($originalLanguage, $originalTitle, $overview, $releaseDate, $runtime, $tagline, $title);
+        $movie = new Movie();
+        $movie->setOriginalLanguage($originalLanguage);
+        $movie->setOriginalTitle($originalTitle);
+        $movie->setOverview($overview);
+        $movie->setReleaseDate($releaseDate);
+        $movie->setRuntime($runtime);
+        $movie->setTagline($tagline);
+        $movie->setTitle($title);
+
+        return $movie;
     }
 
     public function insert(): Movie
@@ -290,4 +290,13 @@ SQL
         return $this;
     }
 
+    public function save(): Movie
+    {
+        if($this->id) {
+            $this->update();
+        } else {
+            $this->insert();
+        }
+        return $this;
+    }
 }
