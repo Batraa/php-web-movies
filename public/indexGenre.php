@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use Entity\Collection\MovieCollection;
 use Entity\Exception\EntityNotFoundException;
+use Entity\Genre;
+use Entity\Movie;
 use Exception\ParameterException;
 use Html\AppWebPage;
 
@@ -12,8 +14,8 @@ try {
         throw new ParameterException("Le paramÃ¨tre n'est pas bon");
     }
     $genreId = (int)($_GET['genreId']);
-
-    $webpage = new AppWebPage("Liste des films");
+    $nomGenre = Genre::findById($genreId)->getName();
+    $webpage = new AppWebPage("Liste des films - {$nomGenre}");
 
     $movies = MovieCollection::findByGenreId($genreId);
 
