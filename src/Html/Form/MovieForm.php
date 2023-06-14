@@ -34,13 +34,21 @@ class MovieForm
         return <<<HTML
                     <form name="form" method="POST" action="$action">
                         <input name="id" type="hidden" value="{$this->getMovie()?->getId()}">
+                        <p>
                         <label>Titre<input required="required" name="title" type="text" value="{$this->escapeString($this->getMovie()?->getTitle())}"></label> 
+                        <p>
                         <label>Titre original<input required="required" name="originalTitle" type="text" value="{$this->escapeString($this->getMovie()?->getOriginalTitle())}"></label> 
+                        <p>
                         <label>Langue originale<input required="required" name="originalLanguage" type="text" value="{$this->escapeString($this->getMovie()?->getOriginalLanguage())}"></label>
+                        <p>
                         <label>Description<input required="required" name="overview" type="text" value="{$this->escapeString($this->getMovie()?->getOverview())}"></label>
+                        <p>
                         <label>Date de sortie<input required="required" name="releaseDate" type="text" value="{$this->escapeString($this->getMovie()?->getReleaseDate())}"></label>
+                        <p>
                         <label>Durée<input required="required" name="runtime" type="text" value="{$this->escapeString($this->getMovie()?->getRuntime())}"></label>
+                        <p>
                         <label>Slogan<input required="required" name="tagline" type="text" value="{$this->escapeString($this->getMovie()?->getTagline())}"></label>
+                        <p>
                         <button type="submit">Enregistrer</button>	
                     </form>                 
             HTML;
