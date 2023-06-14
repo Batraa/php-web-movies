@@ -290,4 +290,13 @@ SQL
         return $this;
     }
 
+    public function save(): Movie
+    {
+        if($this->id) {
+            $this->update();
+        } else {
+            $this->insert();
+        }
+        return $this;
+    }
 }
