@@ -1,0 +1,4 @@
+actor: FormTester
+modules:
+    enabled:
+        - \Tests\Helper\Form
