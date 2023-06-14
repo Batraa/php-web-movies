@@ -2,6 +2,7 @@
 
 namespace Tests\Crud;
 
+use Database\MyPdo;
 use Entity\Exception\EntityNotFoundException;
 use Entity\Movie;
 use Tests\CrudTester;
@@ -65,9 +66,10 @@ class MovieCest
     # Ce test n'est pas encore fonctionnel
     public function insert(CrudTester $I)
     {
-        $movie = Movie::create('French', 'Taxi 3', '', '2003-01-29', 10, '', 'Taxi 3', 200);
+        $movie = Movie::create('French', 'Taxi 3', '', '2003-01-29', 10, '', 'Taxi 3');
         $movie->save();
         $I->canSeeNumRecords(1, 'movie', [
+            'id' => (int)MyPdo::getInstance()->lastInsertId(),
             'originalLanguage' => 'French',
             'originalTitle' => 'Taxi 3',
             'overview' => '',
@@ -75,9 +77,10 @@ class MovieCest
             'runtime' => 10,
             'tagline' => '',
             'title' => 'Taxi 3',
-            'id'=> 200
+
+
         ]);
-        $I->assertSame($movie->getId(), 200);
+        $I->assertSame($movie->getId(), (int)MyPdo::getInstance()->lastInsertId());
         $I->assertSame('Taxi 3', $movie->getTitle());
     }
 }
