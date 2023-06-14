@@ -31,6 +31,7 @@
         "fix:cs" : "php vendor/bin/php-cs-fixer fix",
         "start:windows" : "bin/run-server.bat",
         "start" : "@start:linux",
+        "start:test" : ["bin/run-test-server.bat", "bin/run-test-server.bat"],
         "test:crud" : "php vendor/bin/codecept run Crud",
         "test:codecept" : ["php vendor/bin/codecept clean","php vendor/bin/codecept run"],
         "test:browse" : ["php vendor/bin/codecept clean","php vendor/bin/codecept run Browse"],
