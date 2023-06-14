@@ -14,10 +14,10 @@ class Movie
     private ?int $posterId;
     private string $originalLanguage;
     private string $originalTitle;
-    private ?string $overview;
+    private string $overview;
     private string $releaseDate;
     private int $runtime;
-    private ?string $tagline;
+    private string $tagline;
     private string $title;
 
 
@@ -265,7 +265,8 @@ SQL
 
     public function insert(): Movie
     {
-        $stmt = MyPdo::getInstance()->prepare(
+        $pdo = MyPdo::getInstance();
+        $stmt = $pdo->prepare(
             <<<SQL
 INSERT INTO movie (originalLanguage, originalTitle, overview, releaseDate, runtime, tagline, title)
     VALUES (:originalLanguage, :originalTitle, :overview, :releaseDate, :runtime, :tagline, :title)
@@ -281,7 +282,7 @@ SQL
 
         $stmt->execute();
 
-        $this->id = intval(PDO::lastInsertId());
+        $this->id = intval($pdo->lastInsertId());
         return $this;
     }
 
