@@ -57,4 +57,29 @@ class MovieCollectionCest
             $I->assertEquals($expectedMovie['title'], $movie->getTitle());
         }
     }
+
+    public function findByGenreId(CrudTester $I)
+    {
+        $expectedMovies = [
+            ['id' => 109, 'posterId' => 7373, 'originalLanguage' => 'fr', 'originalTitle' => 'Trois couleurs : Blanc' , 'overview' => 'Karol a tout perdu après son divorce avec Dominique, il ne peut même pas retourner en Pologne et refuse de devenir meurtrier pour de l\'argent. Après avoir enfin réussi à retourner dans son pays, il se lance dans diverses entreprises et tombe dans le piège de sa vengeance sur Dominique.', 'releaseDate' => '1994-01-26', 'runtime' => 100, 'tagline' => '', 'title' => 'Trois couleurs : Blanc'],
+            ['id' => 108, 'posterId' => 7371, 'originalLanguage' => 'fr', 'originalTitle' => 'Trois couleurs : Bleu' , 'overview' => 'Après la mort de son mari, compositeur réputé, et de leur fille dans un accident de voiture, Julie commence une nouvelle vie, coupant tout lien avec son passé. Ex-assistant du couple, Olivier, amoureux d\'elle, tente de l\'inciter à terminer le Concerto pour l\'Europe.', 'releaseDate' => '1993-09-08', 'runtime' => 100, 'tagline' => '', 'title' => 'Trois couleurs : Bleu'],
+            ['id' => 110, 'posterId' => 7369, 'originalLanguage' =>'fr' , 'originalTitle' => 'Trois couleurs : Rouge' , 'overview' => 'Valentine, étudiante à Genève et mannequin à ses heures, passe son temps à attendre les appels téléphoniques de son petit ami, Michel, qui vit en Angleterre. Auguste, son voisin, épris de la douce Karin, travaille d\'arrache-pied pour devenir avocat. Sans le savoir, tout ce petit monde a été placé sur écoute par un juge à la retraite, acariâtre et cynique, qui occupe ainsi sa misanthropie et ses vieux jours. Parce qu\'au volant de sa voiture, elle a renversé la chienne du juge, Valentine fait la connaissance du vieux grigou et découvre ses basses manies. Dégoûtée autant que fascinée, elle se met à lui rendre de fréquentes visites...', 'releaseDate' => '1994-05-27', 'runtime' => 100, 'tagline' => '', 'title' => 'Trois couleurs : Rouge'],
+        ];
+
+        $movies = MovieCollection::findByGenreId(18);
+        $I->assertCount(count($expectedMovies), $movies);
+        $I->assertContainsOnlyInstancesOf(Movie::class, $movies);
+        foreach ($movies as $index => $movie) {
+            $expectedMovie = $expectedMovies[$index];
+            $I->assertEquals($expectedMovie['id'], $movie->getId());
+            $I->assertEquals($expectedMovie['posterId'], $movie->getPosterId());
+            $I->assertEquals($expectedMovie['originalLanguage'], $movie->getOriginalLanguage());
+            $I->assertEquals($expectedMovie['originalTitle'], $movie->getOriginalTitle());
+            $I->assertEquals($expectedMovie['overview'], $movie->getOverview());
+            $I->assertEquals($expectedMovie['releaseDate'], $movie->getReleaseDate());
+            $I->assertEquals($expectedMovie['runtime'], $movie->getRuntime());
+            $I->assertEquals($expectedMovie['tagline'], $movie->getTagline());
+            $I->assertEquals($expectedMovie['title'], $movie->getTitle());
+        }
+    }
 }

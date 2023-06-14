@@ -1,5 +1,7 @@
 <?php
+
 namespace Tests\Crud;
+
 use Entity\Exception\EntityNotFoundException;
 use Entity\Movie;
 use Tests\CrudTester;
@@ -35,7 +37,6 @@ class MovieCest
         $movie = Movie::findById(108);
         $movie->setTitle('Aladdin');
         $movie->save();
-        var_dump($movie);
         $I->canSeeNumRecords(1, 'movie', [
             'id' => 108,
             'title' => 'Aladdin'
@@ -44,4 +45,39 @@ class MovieCest
         $I->assertSame('Aladdin', $movie->getTitle());
     }
 
+    public function createWithoutId(CrudTester $I)
+    {
+        $movie = Movie::create('French', 'Taxi 3', '', '2003-01-29', 10, '', 'Taxi 3');
+        $I->assertNull($movie->getId());
+        $I->assertSame('Taxi 3', $movie->getTitle());
+    }
+
+    public function createWithId(CrudTester $I)
+    {
+        $movie = Movie::create('French', 'Taxi 3', '', '2003-01-29', 10, '', 'Taxi 3', 200);
+        $I->assertSame(200, $movie->getId());
+        $I->assertSame('Taxi 3', $movie->getTitle());
+    }
+
+    /**
+     * @after createWithoutId
+     */
+    # Ce test n'est pas encore fonctionnel
+    public function insert(CrudTester $I)
+    {
+        $movie = Movie::create('French', 'Taxi 3', '', '2003-01-29', 10, '', 'Taxi 3', 200);
+        $movie->save();
+        $I->canSeeNumRecords(1, 'movie', [
+            'originalLanguage' => 'French',
+            'originalTitle' => 'Taxi 3',
+            'overview' => '',
+            'releaseDate' => '2003-01-29',
+            'runtime' => 10,
+            'tagline' => '',
+            'title' => 'Taxi 3',
+            'id'=> 200
+        ]);
+        $I->assertSame($movie->getId(), 200);
+        $I->assertSame('Taxi 3', $movie->getTitle());
+    }
 }

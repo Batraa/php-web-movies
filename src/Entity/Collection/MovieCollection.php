@@ -47,4 +47,26 @@ class MovieCollection
         return $stmt->fetchAll(PDO::FETCH_CLASS, Movie::class);
 
     }
+
+    public static function findByGenreId(int $genreId): array
+    {
+        $stmt = MyPDO::getInstance()->prepare(
+            <<<'SQL'
+            SELECT m.id, m.posterId, m.originalLanguage, m.originalTitle, 
+                   m.overview, m.releaseDate, m.runtime, m.tagline, m.title
+            FROM movie m
+                JOIN movie_genre mg ON m.id = mg.movieId
+                JOIN genre g ON mg.genreId = g.id
+            WHERE g.id = :genreId
+            ORDER BY m.title;
+        SQL
+        );
+
+        $stmt->bindValue(':genreId', "$genreId");
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Movie::class);
+
+    }
+
 }

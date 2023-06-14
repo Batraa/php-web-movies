@@ -14,10 +14,10 @@ class Movie
     private ?int $posterId;
     private string $originalLanguage;
     private string $originalTitle;
-    private string $overview;
+    private ?string $overview;
     private string $releaseDate;
     private int $runtime;
-    private string $tagline;
+    private ?string $tagline;
     private string $title;
 
 
@@ -49,10 +49,10 @@ class Movie
     }
 
     /**
-     * @param int $id
+     * @param int|null $id
      * @return Movie
      */
-    private function setId(int $id): Movie
+    private function setId(?int $id): Movie
     {
         $this->id = $id;
         return $this;
@@ -85,7 +85,7 @@ class Movie
     }
 
     /**
-     * @param string $orignalTitle
+     * @param string $originalTitle
      * @return Movie
      */
     public function setOriginalTitle(string $originalTitle): Movie
@@ -103,10 +103,10 @@ class Movie
     }
 
     /**
-     * @param string $overview
+     * @param string|null $overview
      * @return Movie
      */
-    public function setOverview(string $overview): Movie
+    public function setOverview(?string $overview): Movie
     {
         $this->overview = $overview;
         return $this;
@@ -157,10 +157,10 @@ class Movie
     }
 
     /**
-     * @param string $tagline
+     * @param string|null $tagline
      * @return Movie
      */
-    public function setTagline(string $tagline): Movie
+    public function setTagline(?string $tagline): Movie
     {
         $this->tagline = $tagline;
         return $this;
@@ -248,7 +248,7 @@ SQL
         return $this;
     }
 
-    public static function create(string $originalLanguage, string $originalTitle, string $overview, string $releaseDate, int $runtime, string $tagline, string $title)
+    public static function create(string $originalLanguage, string $originalTitle, ?string $overview = null, string $releaseDate, int $runtime, ?string $tagline = null, string $title, ?int $id = null)
     {
         $movie = new Movie();
         $movie->setOriginalLanguage($originalLanguage);
@@ -258,6 +258,7 @@ SQL
         $movie->setRuntime($runtime);
         $movie->setTagline($tagline);
         $movie->setTitle($title);
+        $movie->setId($id);
 
         return $movie;
     }
