@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Entity\Cast;
 use Entity\Collection\PeopleCollection;
 use Entity\Exception\EntityNotFoundException;
 use Entity\Movie;
@@ -41,6 +42,7 @@ try {
         <section class='actor__list'>");
 
     foreach ($Acteurs as $people) {
+        $role = Cast::getByMovieIdAndPeopleId($movie->getId(), $people->getId())->getRole();
         $appWebPage->appendContent("
             <a href='acteur.php?peopleId={$people->getId()}'>
                 <section class='movie__actor'>
@@ -48,7 +50,7 @@ try {
                         <img class='people__image' src='imgPeople.php?imageId={$people->getAvatarId()}'>
                     </div>
                     <div class='actor__info'>
-                        <p class='actor__role'>{$people->getRoleByIdMovie($movieId)}</p>
+                        <p class='actor__role'>{$role}</p>
                         <p class='actor__name'>{$people->getName()}</p>
                     </div>
                 </section>
@@ -66,4 +68,3 @@ try {
 } catch (Exception) {
     http_response_code(500);
 }
-

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Entity\Cast;
 use Entity\Collection\MovieCollection;
 use Entity\Exception\EntityNotFoundException;
 use Entity\People;
@@ -37,12 +38,13 @@ try {
 
 
     foreach ($movies as $movie) {
+        $role = Cast::getByMovieIdAndPeopleId($movie->getId(), $people->getId())->getRole();
         $appWebPage->appendContent("
         <a href='film.php?movieId={$movie->getId()}' class='actor__movies'>
                 <img class='movie__image' src='imgMovie.php?imageId={$movie->getPosterId()}'>
             <div class='actor__films_info'>
                 <div class='actor__role_date'>
-                    <p>{$movie->getRoleByIdPeople($peopleId)}</p>
+                    <p>{$role}</p>
                     <p>{$movie->getReleaseDate()}</p>
                  </div>
                 <p>{$appWebPage->escapeString($movie->getTitle())}</p>

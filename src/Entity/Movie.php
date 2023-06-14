@@ -210,12 +210,6 @@ class Movie
 
         return $movie;
 
-
-    }
-
-    public function getRoleByIdPeople($id)
-    {
-        return Cast::getByMovieIdAndPeopleId($this->id, $id)->getRole();
     }
 
     public function delete(): Movie
