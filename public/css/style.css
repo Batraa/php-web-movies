@@ -139,9 +139,14 @@ a:link{
 }
 
 .add__button{
-    margin-right: 100%;
-    margin-left: 100%;
-    margin-bottom: 4%;
+    margin-right: 80%;
+    margin-left: 80%;
+    margin-bottom: 1%;
+}
+
+.genre__list{
+    margin-left: 80%;
+    margin-bottom: 4%
 }
 
 @media only screen and (min-width: 720px){
@@ -160,5 +165,9 @@ a:link{
         font-size: 100%;
         max-width: 240px;
     }
-
+    .add__button{
+        margin-right: 100%;
+        margin-left: 100%;
+        margin-bottom: 1%;
+    }
 }
