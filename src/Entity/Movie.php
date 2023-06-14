@@ -265,8 +265,7 @@ SQL
 
     public function insert(): Movie
     {
-        $pdo = MyPdo::getInstance();
-        $stmt = $pdo->prepare(
+        $stmt = MyPDO::getInstance()->prepare(
             <<<SQL
 INSERT INTO movie (originalLanguage, originalTitle, overview, releaseDate, runtime, tagline, title)
     VALUES (:originalLanguage, :originalTitle, :overview, :releaseDate, :runtime, :tagline, :title)
@@ -282,7 +281,7 @@ SQL
 
         $stmt->execute();
 
-        $this->id = intval($pdo->lastInsertId());
+        $this->setId((int)MyPdo::getInstance()->lastInsertId());
         return $this;
     }
 
